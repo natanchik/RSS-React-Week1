@@ -11,7 +11,7 @@ function Search({ setSearch, cards }: State) {
     <div className="search__block">
       <input
         onChange={(event) => {
-          setSearch({ search: event.target.value, cards });
+          setSearch({ search: event.target.value, cards, needUpdate: true });
         }}
         className="input search__input"
         placeholder="Input text"

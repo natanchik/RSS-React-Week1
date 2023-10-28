@@ -9,6 +9,7 @@ class Home extends Component<object, HomeState> {
     this.state = {
       search: '',
       cards: [],
+      needUpdate: false,
     };
   }
 
@@ -17,7 +18,10 @@ class Home extends Component<object, HomeState> {
   }
 
   componentDidUpdate() {
-    this.getCards();
+    const { needUpdate } = this.state;
+    if (needUpdate) {
+      this.getCards();
+    }
   }
 
   async getCards() {
@@ -36,6 +40,7 @@ class Home extends Component<object, HomeState> {
         this.setState({
           search,
           cards: res.results,
+          needUpdate: false,
         });
       })
       .catch((e) => e);

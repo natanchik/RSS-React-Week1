@@ -27,4 +27,5 @@ export interface Response {
 export type HomeState = {
   search: string;
   cards: Card[] | [];
+  needUpdate: boolean;
 };
