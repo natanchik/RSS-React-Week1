@@ -27,9 +27,9 @@ export default class ErrorBoundary extends Component<Props, State> {
 
   render() {
     const { hasError, error } = this.state;
-    // eslint-disable-next-line no-console
-    console.log(`${error.name}: ${error.message}`);
     if (hasError) {
+      // eslint-disable-next-line no-console
+      console.log(`${error.name}: ${error.message}`);
       return (
         <div className="error__block">
           <p className="error__message">{`${error.name}: ${error.message}`}</p>
