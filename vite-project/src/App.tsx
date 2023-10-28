@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
+import ErrorBoundary from './components/Error';
 
 const router = createBrowserRouter([
   {
@@ -15,9 +16,11 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <div className="wrapper">
-      <RouterProvider router={router} />
-    </div>
+    <ErrorBoundary>
+      <div className="wrapper">
+        <RouterProvider router={router} />
+      </div>
+    </ErrorBoundary>
   );
 }
 

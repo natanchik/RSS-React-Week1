@@ -19,14 +19,32 @@ function Search({ setSearch, cards }: State) {
       />
       <button
         onClick={() => {
-          setSearch({ search, cards, needUpdate: true });
+          try {
+            setSearch({ search, cards, needUpdate: true });
+          } catch (error) {
+            if (error instanceof Error)
+              // eslint-disable-next-line no-console
+              console.log(`${error.name}: ${error.message}`);
+          }
         }}
         type="button"
         className="button search__button"
       >
         Search
       </button>
-      <button type="button" className="button cards__error-button">
+      <button
+        onClick={() => {
+          try {
+            throw new Error('This is a Test Error');
+          } catch (error) {
+            if (error instanceof Error)
+              // eslint-disable-next-line no-console
+              console.log(`${error.name}: ${error.message}`);
+          }
+        }}
+        type="button"
+        className="button error__button"
+      >
         Throw Error
       </button>
     </div>
