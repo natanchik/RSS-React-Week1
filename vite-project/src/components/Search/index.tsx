@@ -7,16 +7,23 @@ type State = {
 };
 
 function Search({ setSearch, cards }: State) {
+  let search = '';
   return (
     <div className="search__block">
       <input
         onChange={(event) => {
-          setSearch({ search: event.target.value, cards, needUpdate: true });
+          search = event.target.value;
         }}
         className="input search__input"
         placeholder="Input text"
       />
-      <button type="submit" className="button search__button">
+      <button
+        onClick={() => {
+          setSearch({ search, cards, needUpdate: true });
+        }}
+        type="button"
+        className="button search__button"
+      >
         Search
       </button>
       <button type="button" className="button cards__error-button">
