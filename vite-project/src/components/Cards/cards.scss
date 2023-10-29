@@ -1,0 +1,25 @@
+@import '../../index.scss';
+
+.cards__block {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+  & > * {
+    display: inline-block;
+  }
+}
+
+.card__block {
+  padding: 10px;
+  margin: 10px;
+  width: 200px;
+  height: 280px;
+
+  background-color: $dark;
+  box-shadow: 4px 4px 4px $shadow;
+
+  &:hover {
+    opacity: 70%;
+  }
+}
