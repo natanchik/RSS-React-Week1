@@ -5,7 +5,7 @@ import Cards from '../components/Cards/Cards';
 import Pagination from '../components/Pagination/Pagination';
 
 function Home() {
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(localStorage.getItem('search') || '');
   const [cards, setCards] = useState([]);
   const [page, setPage] = useState(1);
   const [maxPage, setMaxPage] = useState(0);
@@ -39,6 +39,7 @@ function Home() {
   return (
     <>
       <Search
+        search={search}
         setSearch={setSearch}
         setPage={setPage}
         setNeedLoading={setNeedLoading}
