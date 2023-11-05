@@ -23,9 +23,3 @@ export interface Response {
   previous: string | null;
   results: Card[];
 }
-
-export type HomeState = {
-  search: string;
-  cards: Card[] | [];
-  needUpdate: boolean;
-};

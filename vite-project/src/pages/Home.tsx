@@ -1,32 +1,18 @@
-import { Component } from 'react';
-import Search from '../components/Search';
-import Cards from '../components/Cards';
-import { HomeState } from '../types';
+import React, { useState, useCallback } from 'react';
 
-class Home extends Component<object, HomeState> {
-  constructor(props: object) {
-    super(props);
-    this.state = {
-      search: '',
-      cards: [],
-      needUpdate: false,
-    };
-  }
+import Search from '../components/Search/Search';
+import Cards from '../components/Cards/Cards';
+import Pagination from '../components/Pagination/Pagination';
 
-  componentDidMount() {
-    this.getCards();
-  }
+function Home() {
+  const [search, setSearch] = useState(localStorage.getItem('search') || '');
+  const [cards, setCards] = useState([]);
+  const [page, setPage] = useState(1);
+  const [maxPage, setMaxPage] = useState(0);
+  const [needLoading, setNeedLoading] = useState(true);
 
-  componentDidUpdate() {
-    const { needUpdate } = this.state;
-    if (needUpdate) {
-      this.getCards();
-    }
-  }
-
-  async getCards() {
-    let baseUrl = 'https://swapi.dev/api/vehicles/?page=1';
-    const { search } = this.state;
+  const getCards = useCallback(() => {
+    let baseUrl = `https://swapi.dev/api/vehicles/?page=${page}`;
     baseUrl = search
       ? `${baseUrl}&search=${search.split(' ').join('+')}`
       : baseUrl;
@@ -37,26 +23,36 @@ class Home extends Component<object, HomeState> {
     })
       .then((res) => res.json())
       .then((res) => {
-        this.setState({
-          search,
-          cards: res.results,
-          needUpdate: false,
-        });
+        setCards(res.results);
+        setMaxPage(Math.ceil(res.count / 10));
+        setNeedLoading(false);
       })
       .catch((e) => e);
-  }
+  }, [search, page]);
 
-  setSearch = this.setState.bind(this);
+  React.useEffect(() => {
+    if (needLoading) {
+      getCards();
+    }
+  }, [search, page, cards, getCards, needLoading]);
 
-  render() {
-    const { cards } = this.state;
-    return (
-      <>
-        <Search setSearch={this.setSearch} cards={cards} />
-        <Cards cards={cards} />
-      </>
-    );
-  }
+  return (
+    <>
+      <Search
+        search={search}
+        setSearch={setSearch}
+        setPage={setPage}
+        setNeedLoading={setNeedLoading}
+      />
+      <Cards cards={cards} />
+      <Pagination
+        setPage={setPage}
+        page={page}
+        maxPage={maxPage}
+        setNeedLoading={setNeedLoading}
+      />
+    </>
+  );
 }
 
 export default Home;
