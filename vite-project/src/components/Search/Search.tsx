@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import './search.scss';
 
 function Search({
@@ -11,14 +12,14 @@ function Search({
   setPage: React.Dispatch<React.SetStateAction<number>>;
   setNeedLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  let input = search;
+  const [input, setInput] = useState(search);
   return (
     <div className="search__block">
       <input
         onChange={(event) => {
-          input = event.target.value;
+          setInput(event.target.value);
         }}
-        defaultValue={input}
+        value={input}
         className="input search__input"
         placeholder="Input text"
       />
