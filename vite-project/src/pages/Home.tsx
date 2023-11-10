@@ -1,12 +1,12 @@
-import React, { useState, useCallback } from 'react';
-
+import React, { useState, useCallback, useMemo } from 'react';
+import { CardsContext, SearchContext } from '../utils/Context';
 import Search from '../components/Search/Search';
 import Cards from '../components/Cards/Cards';
 import Pagination from '../components/Pagination/Pagination';
 
 function Home() {
-  const [search, setSearch] = useState(localStorage.getItem('search') || '');
   const [cards, setCards] = useState([]);
+  const [search, setSearch] = useState(localStorage.getItem('search') || '');
   const [page, setPage] = useState(1);
   const [maxPage, setMaxPage] = useState(0);
   const [needLoading, setNeedLoading] = useState(true);
@@ -36,22 +36,21 @@ function Home() {
     }
   }, [search, page, cards, getCards, needLoading]);
 
+  const searchState = useMemo(() => ({ search, setSearch }), [search]);
+
   return (
-    <>
-      <Search
-        search={search}
-        setSearch={setSearch}
-        setPage={setPage}
-        setNeedLoading={setNeedLoading}
-      />
-      <Cards cards={cards} />
-      <Pagination
-        setPage={setPage}
-        page={page}
-        maxPage={maxPage}
-        setNeedLoading={setNeedLoading}
-      />
-    </>
+    <CardsContext.Provider value={cards}>
+      <SearchContext.Provider value={searchState}>
+        <Search setPage={setPage} setNeedLoading={setNeedLoading} />
+        <Cards />
+        <Pagination
+          setPage={setPage}
+          page={page}
+          maxPage={maxPage}
+          setNeedLoading={setNeedLoading}
+        />
+      </SearchContext.Provider>
+    </CardsContext.Provider>
   );
 }
 

@@ -1,17 +1,15 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { SearchContext } from '../../utils/Context';
 import './search.scss';
 
 function Search({
-  search,
-  setSearch,
   setPage,
   setNeedLoading,
 }: {
-  search: string;
-  setSearch: React.Dispatch<React.SetStateAction<string>>;
   setPage: React.Dispatch<React.SetStateAction<number>>;
   setNeedLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+  const { search, setSearch } = useContext(SearchContext);
   const [input, setInput] = useState(search);
   return (
     <div className="search__block">
