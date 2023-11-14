@@ -1,7 +1,10 @@
+import { useContext } from 'react';
+import { CardsContext } from '../../utils/Context';
 import { Card } from '../../types';
 import './cards.scss';
 
-function Cards({ cards }: { cards: Card[] | [] }) {
+function Cards() {
+  const cards = useContext(CardsContext);
   return (
     <div className="cards__block">
       {cards.map((card: Card) => (

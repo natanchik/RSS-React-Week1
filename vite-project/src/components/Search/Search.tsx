@@ -1,24 +1,23 @@
+import { useContext, useState } from 'react';
+import { SearchContext } from '../../utils/Context';
 import './search.scss';
 
 function Search({
-  search,
-  setSearch,
   setPage,
   setNeedLoading,
 }: {
-  search: string;
-  setSearch: React.Dispatch<React.SetStateAction<string>>;
   setPage: React.Dispatch<React.SetStateAction<number>>;
   setNeedLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  let input = search;
+  const { search, setSearch } = useContext(SearchContext);
+  const [input, setInput] = useState(search);
   return (
     <div className="search__block">
       <input
         onChange={(event) => {
-          input = event.target.value;
+          setInput(event.target.value);
         }}
-        defaultValue={input}
+        value={input}
         className="input search__input"
         placeholder="Input text"
       />
