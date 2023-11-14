@@ -1,19 +1,20 @@
+import { useSelector, useDispatch } from 'react-redux';
+import type { RootState } from '../../utils/redux/store';
+import {
+  setPage,
+  setNeedLoading,
+} from '../../utils/redux/reducers/cardsReducer';
+
 import './pagination.scss';
 
-function Pagination({
-  setPage,
-  page,
-  maxPage,
-  setNeedLoading,
-}: {
-  setPage: React.Dispatch<React.SetStateAction<number>>;
-  page: number;
-  maxPage: number;
-  setNeedLoading: React.Dispatch<React.SetStateAction<boolean>>;
-}): JSX.Element {
+function Pagination(): JSX.Element {
+  const page = useSelector((state: RootState) => state.cards.page);
+  const maxPage = useSelector((state: RootState) => state.cards.maxPage);
+  const dispatch = useDispatch();
+
   function changePage(newPage: number) {
-    setPage(newPage);
-    setNeedLoading(true);
+    dispatch(setPage(newPage));
+    dispatch(setNeedLoading(true));
   }
 
   return (

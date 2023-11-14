@@ -1,15 +1,18 @@
-import { useContext, useState } from 'react';
-import { SearchContext } from '../../utils/Context';
-import './search.scss';
-
-function Search({
+import { useSelector, useDispatch } from 'react-redux';
+import { useState } from 'react';
+import type { RootState } from '../../utils/redux/store';
+import { setSearch } from '../../utils/redux/reducers/searchReducer';
+import {
   setPage,
   setNeedLoading,
-}: {
-  setPage: React.Dispatch<React.SetStateAction<number>>;
-  setNeedLoading: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
-  const { search, setSearch } = useContext(SearchContext);
+} from '../../utils/redux/reducers/cardsReducer';
+
+import './search.scss';
+
+function Search() {
+  const search = useSelector((state: RootState) => state.search.value);
+  const dispatch = useDispatch();
+
   const [input, setInput] = useState(search);
   return (
     <div className="search__block">
@@ -23,9 +26,9 @@ function Search({
       />
       <button
         onClick={() => {
-          setSearch(input);
-          setPage(1);
-          setNeedLoading(true);
+          dispatch(setSearch(input));
+          dispatch(setPage(1));
+          dispatch(setNeedLoading(true));
           localStorage.setItem('search', input);
         }}
         type="button"
