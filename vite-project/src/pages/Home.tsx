@@ -1,10 +1,9 @@
-import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState } from '../utils/redux/store';
 import Search from '../components/Search/Search';
 import Cards from '../components/Cards/Cards';
 import Pagination from '../components/Pagination/Pagination';
-import getCards from '../api/getCards';
+import { useGetCardsQuery } from '../utils/redux/redux_api';
 import {
   setCards,
   setMaxPage,
@@ -14,25 +13,18 @@ import {
 function Home() {
   const page = useSelector((state: RootState) => state.cards.page);
   const search = useSelector((state: RootState) => state.search.value);
-  const needLoading = useSelector(
-    (state: RootState) => state.cards.needLoading
-  );
-  const dispatch = useDispatch();
 
-  React.useEffect(() => {
-    if (needLoading) {
-      getCards(page, search).then((res) => {
-        dispatch(setCards(res.results));
-        dispatch(setMaxPage(Math.ceil(res.count / 10)));
-        dispatch(setNeedLoading(false));
-      });
-    }
-  }, [dispatch, page, search, needLoading]);
+  const dispatch = useDispatch();
+  const { data = [], isLoading } = useGetCardsQuery({ page, search });
+
+  dispatch(setCards(data.results));
+  dispatch(setMaxPage(Math.ceil(data.count / 10)));
+  dispatch(setNeedLoading(false));
 
   return (
     <>
       <Search />
-      <Cards />
+      {isLoading ? <h1>Loading...</h1> : <Cards />}
       <Pagination />
     </>
   );

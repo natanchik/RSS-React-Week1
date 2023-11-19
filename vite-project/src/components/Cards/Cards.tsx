@@ -5,6 +5,7 @@ import './cards.scss';
 
 function Cards() {
   const cards = useSelector((state: RootState) => state.cards.cards);
+
   return (
     <div className="cards__block">
       {cards &&
