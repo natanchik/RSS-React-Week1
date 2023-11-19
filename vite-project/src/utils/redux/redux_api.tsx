@@ -13,15 +13,7 @@ export const cardsApi = createApi({
         }`,
       providesTags: ['Cards'],
     }),
-    updateCards: builder.mutation({
-      query: (body) => ({
-        url: '',
-        method: 'POST',
-        body,
-      }),
-      invalidatesTags: ['Cards'],
-    }),
   }),
 });
 
-export const { useGetCardsQuery, useUpdateCardsMutation } = cardsApi;
+export const { useGetCardsQuery } = cardsApi;
