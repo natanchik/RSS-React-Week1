@@ -1,0 +1,21 @@
+@import '@/styles/shared.module.scss';
+
+.card__header {
+  display: block;
+  width: 100vw;
+  text-align: center;
+}
+
+.card__block {
+  padding: 20px;
+  margin: 20px auto;
+  width: 80vw;
+  height: fit-content;
+
+  background-color: $dark;
+  box-shadow: 4px 4px 4px $shadow;
+
+  &:hover {
+    opacity: 70%;
+  }
+}
