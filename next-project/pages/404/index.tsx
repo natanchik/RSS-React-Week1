@@ -7,7 +7,6 @@ export default function Error() {
     <>
       <Head>
         <title>404</title>
-        <link rel='icon' href='/favicon.ico' />
       </Head>
       <div className={styles.wrapper}>
         <h1>Ooops...</h1>
