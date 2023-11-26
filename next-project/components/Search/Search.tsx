@@ -1,19 +1,26 @@
-// import { useSelector, useDispatch } from 'react-redux';
-import { useState } from 'react';
-// import {
-//   setPage,
-//   setNeedLoading,
-//   setSearch
-// } from '../../utils/redux/reducers/cardsReducer';
-
+import { useCallback, useState } from 'react';
 import styles from './search.module.scss';
 import sharedStyles from '@/styles/shared.module.scss';
+import { useRouter } from 'next/router';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 function Search() {
-  // const search = useSelector((state: RootState) => state.search.value);
-  // const dispatch = useDispatch();
+  const searchParams = useSearchParams();
+  const [input, setInput] = useState(searchParams.get('search') || '');
+  const router = useRouter();
+  const pathname = usePathname();
 
-  const [input, setInput] = useState('');
+  const createQueryString = useCallback(
+    (search: string) => {
+      const params = new URLSearchParams(searchParams);
+      params.set('search', search);
+      params.set('page', `${1}`);
+
+      return params.toString();
+    },
+    [searchParams],
+  );
+
   return (
     <div className={styles.search__block}>
       <input
@@ -25,12 +32,9 @@ function Search() {
         placeholder='Input text'
       />
       <button
-        // onClick={() => {
-        //   dispatch(setSearch(input));
-        //   dispatch(setPage(1));
-        //   dispatch(setNeedLoading(true));
-        //   localStorage.setItem('search', input);
-        // }}
+        onClick={() => {
+          router.push(pathname + '?' + createQueryString(input));
+        }}
         type='button'
         className={sharedStyles.button}
       >

@@ -24,9 +24,9 @@
       background-color: $light;
     }
   }
-}
 
-.current-page {
-  background-color: $dark;
-  cursor: default;
+  &.current_page {
+    background-color: $dark;
+    cursor: default;
+  }
 }
