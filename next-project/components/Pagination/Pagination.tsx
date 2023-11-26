@@ -34,11 +34,12 @@ function Pagination(): JSX.Element {
           // disabled={page === 1}
           // onClick={() => changePage(page - 1)}
         >
-          {/* {page === 1 ? '.' : page - 1} */}
+          {/* {page === 1 ? '.' : page - 1} */}.
         </button>
         <button type='button' className={styles.pagination__item}>
           {/*...styles.current-page*/
           /* {page} */}
+          1
         </button>
         <button
           type='button'
@@ -46,7 +47,7 @@ function Pagination(): JSX.Element {
           //   disabled={page === maxPage}
           //   onClick={() => changePage(page + 1)}
         >
-          {/* {page === maxPage ? '.' : page + 1} */}
+          {/* {page === maxPage ? '.' : page + 1} */}2
         </button>
         <button
           type='button'

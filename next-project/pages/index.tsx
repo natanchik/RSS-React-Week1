@@ -2,6 +2,7 @@ import Layout from '@/components/Layout';
 import Cards from '../components/Cards/Cards';
 import { Response } from '@/types';
 import type { InferGetServerSidePropsType, GetServerSideProps } from 'next';
+import Pagination from '@/components/Pagination/Pagination';
 
 export const getServerSideProps = (async () => {
   const response = await fetch('https://swapi.dev/api/vehicles/');
@@ -25,6 +26,7 @@ export default function Home({ data }: InferGetServerSidePropsType<typeof getSer
     <>
       <Layout title={'Home Page'}>
         <Cards cards={data.results || []} />
+        <Pagination />
       </Layout>
     </>
   );
