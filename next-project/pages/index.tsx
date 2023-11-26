@@ -4,7 +4,6 @@ import { Response } from '@/types';
 import type { InferGetServerSidePropsType, GetServerSideProps } from 'next';
 import Pagination from '@/components/Pagination/Pagination';
 import { useSearchParams } from 'next/navigation';
-import { Suspense } from 'react';
 
 export const getServerSideProps = (async () => {
   let searchParams;
