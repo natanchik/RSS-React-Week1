@@ -8,13 +8,13 @@ function App() {
       <p className={'home__text'}>
         Fill out the{' '}
         <Link className={'home__link'} to="/form1">
-          form 1
+          form with React Hook Form
         </Link>
       </p>
       <p className={'home__text'}>
         Fill out the{' '}
         <Link className={'home__link'} to="/form2">
-          form 2
+          form with uncontrolled components
         </Link>
       </p>
     </>
