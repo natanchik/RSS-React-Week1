@@ -1,0 +1,21 @@
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  border: none;
+}
+
+.card {
+  display: inline-block;
+  margin: 10px;
+  width: 250px;
+  height: 250px;
+  text-align: center;
+  border: 5px solid rgb(69, 69, 196);
+
+  &:first-child {
+    border: 5px solid green;
+    background-color: rgb(23, 114, 23);
+  }
+}
