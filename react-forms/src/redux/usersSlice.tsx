@@ -14,7 +14,7 @@ export const usersSlice = createSlice({
   initialState,
   reducers: {
     addUser: (state, action: PayloadAction<object>) => {
-      state.users.push(action.payload);
+      state.users.unshift(action.payload);
     },
   },
 });

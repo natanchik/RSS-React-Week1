@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import './App.scss';
+import Cards from './components/cards';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           Form with uncontrolled components
         </Link>
       </p>
+      <Cards />
     </>
   );
 }
