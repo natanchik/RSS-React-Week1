@@ -1,6 +1,9 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { useAppDispatch } from '../redux/hooks';
+import { addUser } from '../redux/usersSlice';
+import { useNavigate } from 'react-router-dom';
 import './forms.scss';
 
 const schema = yup.object().shape({
@@ -35,7 +38,7 @@ const schema = yup.object().shape({
     .min(6, 'The password must contain at least 6 characters')
     .max(32, 'The password must contain no more than 32 characters')
     .required('This field is a required'),
-  gender: yup.array().required('This field is a required'),
+  gender: yup.array().of(yup.string()).required('This field is a required'),
   acceptTC: yup.boolean(),
   country: yup.string().required('This field is a required'),
 });
@@ -45,15 +48,17 @@ export default function Form1() {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm({
     resolver: yupResolver(schema),
   });
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const onSubmitHandler = async (data: object) => {
-    await schema.validate(data);
-    console.log(JSON.stringify({ data }));
-    reset();
+    dispatch(addUser(data));
+    navigate('/');
   };
+
   return (
     <form className="form" onSubmit={handleSubmit(onSubmitHandler)}>
       <h2 className="form__header">The form with React Hook Form</h2>
