@@ -1,5 +1,6 @@
 .cards {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
   border: none;
@@ -7,6 +8,7 @@
 
 .card {
   display: inline-block;
+  margin: 10px;
   width: 250px;
   height: 250px;
   text-align: center;
